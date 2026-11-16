@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f3ff" />
+    <title>Debounce playground — Utility Lab</title>
+    <style>
+      :root{font-family:Inter,"DM Sans",system-ui,sans-serif;color:#26243c;background:#f5f4fa;font-synthesis:none}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 85% 5%,#e8e0ff 0,transparent 32rem),#f5f4fa}.shell{max-width:1040px;margin:auto;padding:24px 28px}.top{display:flex;justify-content:space-between;align-items:center;padding:4px 0 20px;border-bottom:1px solid #e4e1ef}.brand{display:flex;align-items:center;gap:10px;color:#25233c;text-decoration:none;font-weight:750;letter-spacing:-.4px}.mark{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;color:white;background:linear-gradient(145deg,#9b7cf4,#6b4ed1);font-size:20px;box-shadow:0 6px 14px #7557df40}.back{color:#77738d;text-decoration:none;font-size:13px}.back:hover{color:#6548c9}.crumb{margin:25px 0 12px;color:#8b879e;font-size:12px}.crumb a{color:#7863c5;text-decoration:none}.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:22px;align-items:start}.panel,.aside{background:#fff;border:1px solid #e9e6f0;border-radius:18px;box-shadow:0 10px 32px #30264d0a}.panel{padding:30px}.eyebrow{font:600 10px ui-monospace,SFMono-Regular,monospace;letter-spacing:1.3px;text-transform:uppercase;color:#7a61ce}.eyebrow i{display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:#7b5be2;box-shadow:0 0 0 4px #7b5be21a}h1{margin:15px 0 8px;font-size:36px;line-height:1.1;letter-spacing:-1.8px}p{color:#77758b;font-size:14px;line-height:1.65}.search-label{display:block;margin:28px 0 8px;color:#77758b;font:600 10px ui-monospace,monospace;letter-spacing:.7px}.search{display:flex;align-items:center;gap:10px;padding:0 13px;height:49px;border:1px solid #e1deea;border-radius:10px;background:#fbfaff;color:#8770d3}.search:focus-within{border-color:#a48bea;box-shadow:0 0 0 4px #8162e51a}.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#343149;font:14px inherit}.search input::placeholder{color:#aaa7b7}.search kbd{padding:4px 6px;border:1px solid #e8e5ef;border-radius:5px;background:white;color:#9995a9;font-size:10px}.meta{display:flex;justify-content:space-between;margin-top:13px;color:#9692a5;font-size:11px}.meta b{color:#6851c2;font:600 12px ui-monospace,monospace}.results{margin-top:23px;border-top:1px solid #eeecf3;padding-top:8px;min-height:150px}.empty{padding:34px 12px;text-align:center;color:#aaa7b7;font-size:13px}.item{display:flex;align-items:center;justify-content:space-between;padding:13px 9px;border-bottom:1px solid #f0eef4}.item:last-child{border-bottom:0}.item-name{font-size:13px;font-weight:650;color:#3b394f}.item-category{margin-top:4px;color:#9a97a8;font-size:11px}.price{font:600 12px ui-monospace,monospace;color:#5f4ab1}.aside{padding:21px}.aside h2{margin:0 0 12px;font-size:14px;letter-spacing:-.2px}.aside p{font-size:12px;margin:0 0 16px}.step{display:flex;gap:10px;margin:15px 0;color:#77758b;font-size:12px;line-height:1.5}.num{flex:0 0 21px;width:21px;height:21px;display:grid;place-items:center;border-radius:7px;background:#f0ecff;color:#7457d3;font:11px ui-monospace,monospace}.code{margin-top:20px;padding:13px;border-radius:9px;background:#22213b;color:#e6e0ff;overflow:auto;font:11px/1.8 ui-monospace,monospace}.code .comment{color:#9290ac}.code .key{color:#b69bff}.aside-link{display:inline-block;margin-top:17px;color:#7055ca;text-decoration:none;font-size:12px;font-weight:650}.aside-link:hover{text-decoration:underline}.footer{margin-top:22px;text-align:center;color:#aaa7b7;font-size:11px}@media(max-width:720px){.shell{padding:16px}.layout{grid-template-columns:1fr}.panel{padding:23px}.aside{order:2}h1{font-size:32px}}
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="top"><a class="brand" href="../../playground/index.html"><span class="mark">u.</span>utility lab</a><a class="back" href="../../playground/index.html">← All utilities</a></header>
+      <div class="crumb"><a href="../../playground/index.html">Playground</a> / Debounce</div>
+      <main class="layout">
+        <section class="panel" aria-labelledby="title">
+          <div class="eyebrow"><i></i>Performance utility</div>
+          <h1 id="title">Debounce a product search</h1>
+          <p>Search-as-you-type can fire on every keystroke. Debounce waits for a short pause, then runs one search with the latest query.</p>
+          <label class="search-label" for="search">PRODUCT CATALOG</label>
+          <div class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Try wireless, keyboard, audio…" autocomplete="off" /><kbd>400 ms</kbd></div>
+          <div class="meta"><span>Search operations</span><b id="count">0</b></div>
+          <div id="results" class="results" aria-live="polite"><div class="empty">Type a product name to search the catalog</div></div>
+        </section>
+        <aside class="aside">
+          <h2>What’s happening?</h2>
+          <p>Each keystroke resets a timer. A search only runs after you stop typing.</p>
+          <div class="step"><span class="num">01</span><span>Type a few characters quickly.</span></div>
+          <div class="step"><span class="num">02</span><span>Watch the operation count stay still while you type.</span></div>
+          <div class="step"><span class="num">03</span><span>After 400 ms of quiet, one search runs.</span></div>
+          <div class="code"><span class="comment">// One call after typing pauses</span><br /><span class="key">const</span> searchLater = debounce(<br />&nbsp; searchCatalog,<br />&nbsp; 400<br />);</div>
+          <a class="aside-link" href="../../src/debounce/README.md">Read the implementation notes ↗</a>
+        </aside>
+      </main>
+      <footer class="footer">Utility Lab · Debounce playground</footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

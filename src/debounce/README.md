@@ -21,7 +21,7 @@ A zero delay still schedules through the event loop. A continuous stream can pos
 [`debounce.test.js`](../debounce/debounce.test.js) covers burst coalescing/latest arguments, receiver preservation, and invalid inputs. Run all modules with `npm test`.
 
 ## 7. Real-world demonstration
-The [live catalog search](../../playground/index.html#debounce) shows matching products and the number of searches actually sent while typing.
+The [live catalog search](../../playground/debounce/index.html) shows matching products and the number of searches actually sent while typing.
 
 ## 8. Complexity analysis
 Each event does O(1) timer work. The wrapper retains O(1) state (one timer and the latest call's arguments) until invocation.
