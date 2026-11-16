@@ -1,4 +1,4 @@
-import { debounce } from '../../src/debounce/debounce.js';
+import { debounce } from '../../src/functions/debounce.js';
 
 const products = [
   { name: 'Wireless Headphones', category: 'Audio', price: 129.99 },
@@ -27,19 +27,43 @@ function renderSearch(query, targetId) {
 
 let immediateSearches = 0;
 let debouncedSearches = 0;
-const searchLater = debounce((query) => {
-  debouncedSearches += 1;
-  byId('search-later-count').textContent = debouncedSearches;
-  renderSearch(query, 'search-later-results');
-}, 400);
-byId('search-input').addEventListener('input', (event) => {
+let keystrokes = 0;
+let debounceGeneration = 0;
+let searchLater;
+function createSearchDebouncer(wait, generation) {
+  return debounce((...args) => {
+    if (generation !== debounceGeneration) return;
+    const [query] = args;
+    debouncedSearches += 1;
+    byId('search-later-count').textContent = debouncedSearches;
+    byId('execution-count').textContent = debouncedSearches;
+    byId('execution-timestamp').textContent = new Date().toLocaleTimeString();
+    byId('latest-arguments').textContent = JSON.stringify(args);
+    renderSearch(query, 'search-later-results');
+  }, wait);
+}
+searchLater = createSearchDebouncer(400, debounceGeneration);
+const searchInput = byId('search-input');
+const delayInput = byId('debounce-delay');
+function updateDelay() {
+  const wait = Number(delayInput.value);
+  byId('delay-output').textContent = `${wait} ms`;
+  byId('search-wait-label').textContent = `${wait} ms`;
+  byId('search-delay-metric').innerHTML = `${wait}<span style="font-size:10px"> ms</span>`;
+  debounceGeneration += 1;
+  searchLater = createSearchDebouncer(wait, debounceGeneration);
+  if (searchInput.value.trim()) searchLater(searchInput.value);
+}
+delayInput.addEventListener('input', updateDelay);
+searchInput.addEventListener('input', (event) => {
   const query = event.currentTarget.value;
+  keystrokes += 1;
+  byId('keystroke-count').textContent = keystrokes;
   immediateSearches += 1;
   byId('search-now-count').textContent = immediateSearches;
   renderSearch(query, 'search-now-results');
   searchLater(query);
 });
-
 let immediateLayouts = 0;
 let debouncedLayouts = 0;
 function updateLayout(target, count, width, height) {

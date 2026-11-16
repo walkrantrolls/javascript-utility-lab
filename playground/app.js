@@ -1,9 +1,12 @@
-import { debounce } from '../src/debounce/debounce.js';
-import { throttle } from '../src/throttle/throttle.js';
-import { memoize } from '../src/memoize/memoize.js';
-import { flatten } from '../src/flatten/flatten.js';
-import { curry } from '../src/curry/curry.js';
-import { promiseAll } from '../src/promise-all/promise-all.js';
+import { debounce } from '../src/functions/debounce.js';
+import { throttle } from '../src/functions/throttle.js';
+import { memoize } from '../src/functions/memoize.js';
+import { flatten } from '../src/arrays/flatten.js';
+import { unique } from '../src/arrays/unique.js';
+import { curry } from '../src/functions/curry.js';
+import { promiseAll } from '../src/promises/promiseAll.js';
+import { promiseRace } from '../src/promises/promiseRace.js';
+import { deepClone } from '../src/objects/deepClone.js';
 
 const products = [
   { name: 'Wireless Headphones', category: 'Audio', price: 129.99 },
@@ -113,3 +116,53 @@ document.addEventListener('keydown', (event) => {
     document.querySelector('#debounce').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 });
+
+
+const raceButton = document.querySelector('#race-run');
+if (raceButton) {
+  const raceRows = ['#race-cache', '#race-edge', '#race-origin'].map((selector) => document.querySelector(selector).closest('.request-row'));
+  const raceSummary = document.querySelector('#race-summary');
+  raceButton.addEventListener('click', async () => {
+    raceButton.disabled = true;
+    raceSummary.textContent = 'Waiting for the first response…';
+    raceRows.forEach((row) => { row.classList.add('pending'); row.lastElementChild.textContent = 'Waiting'; });
+    const requests = [
+      { name: 'Cache', delay: 420 },
+      { name: 'Edge API', delay: 760 },
+      { name: 'Origin API', delay: 1120 },
+    ].map((request, index) => new Promise((resolve) => setTimeout(() => resolve({ ...request, index }), request.delay)));
+    const winner = await promiseRace(requests);
+    raceRows.forEach((row, index) => {
+      row.classList.remove('pending');
+      row.lastElementChild.textContent = index === winner.index ? `${winner.delay} ms · winner` : 'Completed later';
+    });
+    raceSummary.textContent = `${winner.name} returned first`;
+    Promise.all(requests).then(() => { raceButton.disabled = false; });
+  });
+}
+
+const uniqueInput = document.querySelector('#unique-input');
+if (uniqueInput) {
+  const updateUnique = () => {
+    const tags = uniqueInput.value.split(',').map((tag) => tag.trim()).filter(Boolean);
+    document.querySelector('#unique-output').textContent = JSON.stringify(unique(tags));
+  };
+  uniqueInput.addEventListener('input', updateUnique);
+  updateUnique();
+}
+
+const cloneName = document.querySelector('#clone-name');
+const cloneTheme = document.querySelector('#clone-theme');
+if (cloneName && cloneTheme) {
+  const sourceProfile = { name: 'Priya', preferences: { theme: 'Violet' } };
+  const updateClone = () => {
+    const draft = deepClone(sourceProfile);
+    draft.name = cloneName.value || '—';
+    draft.preferences.theme = cloneTheme.value || '—';
+    document.querySelector('#clone-source').textContent = `${sourceProfile.name} · ${sourceProfile.preferences.theme}`;
+    document.querySelector('#clone-copy').textContent = `${draft.name} · ${draft.preferences.theme}`;
+  };
+  cloneName.addEventListener('input', updateClone);
+  cloneTheme.addEventListener('input', updateClone);
+  updateClone();
+}

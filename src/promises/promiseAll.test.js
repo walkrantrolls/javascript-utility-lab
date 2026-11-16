@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { promiseAll } from './promise-all.js';
+import { promiseAll } from './promiseAll.js';
 
 test('promiseAll resolves values in input order', async () => {
   const result = await promiseAll([

@@ -9,7 +9,7 @@ A dashboard may need profile, order history, and recommendations before it can s
 The Promise.all pattern adopts promises and plain values, waits until all fulfill, and returns fulfillment values in input order. It rejects as soon as one input rejects.
 
 ## 3. Implementation
-See [`promise-all.js`](../src/promise-all/promise-all.js). It materializes the iterable, resolves each item with `Promise.resolve`, stores fulfillment values at their input indexes, and counts remaining results.
+See [`promiseAll.js`](../src/promises/promiseAll.js). It materializes the iterable, resolves each item with `Promise.resolve`, stores fulfillment values at their input indexes, and counts remaining results.
 
 ## 4. Step-by-step execution
 For three requests with delays 350, 700, and 520 ms: (1) start all requests without awaiting each one; (2) each result fills its own index when ready; (3) the completion counter reaches zero after the slowest request; (4) the combined promise resolves with values in original order.
@@ -18,7 +18,7 @@ For three requests with delays 350, 700, and 520 ms: (1) start all requests with
 An empty iterable resolves to an empty array. Non-iterables reject. Rejection does not cancel other operations. Values and thenables are adopted through `Promise.resolve`. Iterator errors reject the returned promise.
 
 ## 6. Unit tests
-[`promise-all.test.js`](../src/promise-all/promise-all.test.js) covers order under out-of-order completion, mixed values/promises, empty and general iterables, and rejection. Run with `npm test`.
+[`promiseAll.test.js`](../src/promises/promiseAll.test.js) covers order under out-of-order completion, mixed values/promises, empty and general iterables, and rejection. Run with `npm test`.
 
 ## 7. Real-world demonstration
 The [dashboard request demo](../playground/index.html#promise-all) simulates three independent requests and updates the view when all complete.
