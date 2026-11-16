@@ -30,15 +30,33 @@ let debouncedSearches = 0;
 let keystrokes = 0;
 let debounceGeneration = 0;
 let searchLater;
+function recordSearchCall(prefix, args) {
+  const count = prefix === 'search-now' ? ++immediateSearches : ++debouncedSearches;
+  const timestamp = new Date().toLocaleTimeString();
+  byId(`${prefix}-count`).textContent = count;
+  byId(`${prefix}-timestamp`).textContent = timestamp;
+  byId(`${prefix}-latest-args`).textContent = JSON.stringify(args);
+
+  const history = byId(`${prefix}-history`);
+  history.querySelector('.trace-empty')?.remove();
+  const entry = document.createElement('div');
+  entry.className = 'trace-entry';
+  const index = document.createElement('span');
+  index.className = 'trace-index';
+  index.textContent = `#${history.querySelectorAll('.trace-entry').length + 1}`;
+  const received = document.createElement('code');
+  received.textContent = JSON.stringify(args);
+  const time = document.createElement('time');
+  time.textContent = timestamp;
+  entry.append(index, received, time);
+  history.append(entry);
+  history.scrollTop = history.scrollHeight;
+  return args[0];
+}
 function createSearchDebouncer(wait, generation) {
   return debounce((...args) => {
     if (generation !== debounceGeneration) return;
-    const [query] = args;
-    debouncedSearches += 1;
-    byId('search-later-count').textContent = debouncedSearches;
-    byId('execution-count').textContent = debouncedSearches;
-    byId('execution-timestamp').textContent = new Date().toLocaleTimeString();
-    byId('latest-arguments').textContent = JSON.stringify(args);
+    const query = recordSearchCall('search-later', args);
     renderSearch(query, 'search-later-results');
   }, wait);
 }
@@ -58,11 +76,11 @@ delayInput.addEventListener('input', updateDelay);
 searchInput.addEventListener('input', (event) => {
   const query = event.currentTarget.value;
   keystrokes += 1;
-  byId('keystroke-count').textContent = keystrokes;
-  immediateSearches += 1;
-  byId('search-now-count').textContent = immediateSearches;
-  renderSearch(query, 'search-now-results');
-  searchLater(query);
+  byId('search-now-keystrokes').textContent = keystrokes;
+  byId('search-later-keystrokes').textContent = keystrokes;
+  const args = [query];
+  renderSearch(recordSearchCall('search-now', args), 'search-now-results');
+  searchLater(...args);
 });
 let immediateLayouts = 0;
 let debouncedLayouts = 0;
