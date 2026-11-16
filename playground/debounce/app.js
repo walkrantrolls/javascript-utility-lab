@@ -9,24 +9,79 @@ const products = [
   { name: 'USB-C Hub', category: 'Accessories', price: 39 },
 ];
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
-const input = document.querySelector('#search');
-const results = document.querySelector('#results');
-const count = document.querySelector('#count');
-let searches = 0;
+const byId = (id) => document.getElementById(id);
 
-const searchCatalog = debounce((query) => {
-  searches += 1;
-  count.textContent = searches;
+function renderSearch(query, targetId) {
+  const target = byId(targetId);
   if (!query.trim()) {
-    results.innerHTML = '<div class="empty">Type a product name to search the catalog</div>';
+    target.textContent = 'Type to see matching products';
     return;
   }
   const matches = products.filter((product) =>
     `${product.name} ${product.category}`.toLowerCase().includes(query.toLowerCase()),
   );
-  results.innerHTML = matches.length
-    ? matches.map((product) => `<article class="item"><div><div class="item-name">${product.name}</div><div class="item-category">${product.category}</div></div><span class="price">${money.format(product.price)}</span></article>`).join('')
-    : '<div class="empty">No matching products. Try “audio” or “wireless”.</div>';
-}, 400);
+  target.innerHTML = matches.length
+    ? `<div class="result-list">${matches.slice(0, 3).map((product) => `<div class="result-product"><span>${product.name}</span><b>${money.format(product.price)}</b></div>`).join('')}</div>`
+    : 'No matches. Try “audio” or “wireless”.';
+}
 
-input.addEventListener('input', (event) => searchCatalog(event.target.value));
+let immediateSearches = 0;
+let debouncedSearches = 0;
+const searchLater = debounce((query) => {
+  debouncedSearches += 1;
+  byId('search-later-count').textContent = debouncedSearches;
+  renderSearch(query, 'search-later-results');
+}, 400);
+byId('search-input').addEventListener('input', (event) => {
+  const query = event.currentTarget.value;
+  immediateSearches += 1;
+  byId('search-now-count').textContent = immediateSearches;
+  renderSearch(query, 'search-now-results');
+  searchLater(query);
+});
+
+let immediateLayouts = 0;
+let debouncedLayouts = 0;
+function updateLayout(target, count, width, height) {
+  count();
+  byId(`${target}-count`).textContent = target === 'resize-now' ? immediateLayouts : debouncedLayouts;
+  byId(`${target}-size`).textContent = `${width} × ${height}`;
+  byId(`${target}-preview`).textContent = width < 700 ? 'Compact layout' : 'Wide layout';
+}
+window.addEventListener('resize', () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  updateLayout('resize-now', () => { immediateLayouts += 1; }, width, height);
+  resizeLater(width, height);
+});
+const resizeLater = debounce((width, height) => {
+  debouncedLayouts += 1;
+  updateLayout('resize-later', () => {}, width, height);
+}, 250);
+
+let immediateSaves = 0;
+let debouncedSaves = 0;
+const draftInput = byId('draft-input');
+function saveImmediately(value) {
+  immediateSaves += 1;
+  byId('save-now-count').textContent = immediateSaves;
+  byId('save-now-status').textContent = 'Saved';
+  byId('save-now-preview').textContent = value || 'Empty draft';
+}
+const saveLater = debounce((value) => {
+  debouncedSaves += 1;
+  byId('save-later-count').textContent = debouncedSaves;
+  byId('save-later-status').textContent = 'Saved';
+  byId('save-later-status').classList.remove('waiting');
+  byId('save-later-preview').textContent = value || 'Empty draft';
+  byId('save-later-label').textContent = 'Saved after pause';
+  byId('save-later-label').classList.remove('waiting');
+}, 700);
+draftInput.addEventListener('input', (event) => {
+  const value = event.currentTarget.value;
+  saveImmediately(value);
+  byId('save-later-status').textContent = 'Waiting…';
+  byId('save-later-status').classList.add('waiting');
+  byId('save-later-label').textContent = 'Pending pause';
+  byId('save-later-label').classList.add('waiting');
+  saveLater(value);
+});
