@@ -16,15 +16,15 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 
 | Utility | Practical example | Implementation |
 | --- | --- | --- |
-| `debounce` | Wait for a pause in a product search field | [Source](src/functions/debounce.js), [guide](docs/debounce.md) |
-| `throttle` | Bound event handling during a burst of resize-like events | [Source](src/functions/throttle.js), [guide](docs/throttle.md) |
-| `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry.js), [guide](docs/curry.md) |
-| `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize.js), [guide](docs/memoize.md) |
-| `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten.js), [guide](docs/flatten.md) |
-| `promiseAll` | Wait for a set of dashboard requests together | [Source](src/promises/promiseAll.js), [guide](docs/promise-all.md) |
-| `promiseRace` | Use the first completed request | [Source](src/promises/promiseRace.js), [guide](docs/promise-race.md) |
-| `unique` | Remove duplicate category tags | [Source](src/arrays/unique.js), [guide](docs/unique.md) |
-| `deepClone` | Edit a copy of nested settings | [Source](src/objects/deepClone.js), [guide](docs/deep-clone.md) |
+| `debounce` | Wait for a pause in a product search field | [Source](src/functions/debounce/debounce.js), [guide](docs/debounce.md) |
+| `throttle` | Bound event handling during a burst of resize-like events | [Source](src/functions/throttle/throttle.js), [guide](docs/throttle.md) |
+| `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
+| `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
+| `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/flatten.md) |
+| `promiseAll` | Wait for a set of dashboard requests together | [Source](src/promises/promiseAll/promiseAll.js), [guide](docs/promise-all.md) |
+| `promiseRace` | Use the first completed request | [Source](src/promises/promiseRace/promiseRace.js), [guide](docs/promise-race.md) |
+| `unique` | Remove duplicate category tags | [Source](src/arrays/unique/unique.js), [guide](docs/unique.md) |
+| `deepClone` | Edit a copy of nested settings | [Source](src/objects/deepClone/deepClone.js), [guide](docs/deep-clone.md) |
 
 ## Test
 
@@ -37,10 +37,10 @@ Tests use Node's built-in `node:test` and `node:assert`, with no test framework 
 ## Project layout
 
 ```text
-src/functions/       Function utilities and colocated unit tests
-src/promises/        Promise utilities and colocated unit tests
-src/arrays/          Array utilities and colocated unit tests
-src/objects/         Object utilities and colocated unit tests
+src/functions/<name>/  Function implementation and matching unit test
+src/promises/<name>/   Promise implementation and matching unit test
+src/arrays/<name>/     Array implementation and matching unit test
+src/objects/<name>/    Object implementation and matching unit test
 playground/          Browser-native interactive demos for all nine modules
 docs/                Mirrored guides for convenient documentation browsing
 .github/workflows/   CI runs the unit suite on Node 20

@@ -1,4 +1,4 @@
-import { debounce } from '../../src/functions/debounce.js';
+import { debounce } from '../../src/functions/debounce/debounce.js';
 
 const products = [
   { name: 'Wireless Headphones', category: 'Audio', price: 129.99 },

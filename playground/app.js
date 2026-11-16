@@ -1,12 +1,12 @@
-import { debounce } from '../src/functions/debounce.js';
-import { throttle } from '../src/functions/throttle.js';
-import { memoize } from '../src/functions/memoize.js';
-import { flatten } from '../src/arrays/flatten.js';
-import { unique } from '../src/arrays/unique.js';
-import { curry } from '../src/functions/curry.js';
-import { promiseAll } from '../src/promises/promiseAll.js';
-import { promiseRace } from '../src/promises/promiseRace.js';
-import { deepClone } from '../src/objects/deepClone.js';
+import { debounce } from '../src/functions/debounce/debounce.js';
+import { throttle } from '../src/functions/throttle/throttle.js';
+import { memoize } from '../src/functions/memoize/memoize.js';
+import { flatten } from '../src/arrays/flatten/flatten.js';
+import { unique } from '../src/arrays/unique/unique.js';
+import { curry } from '../src/functions/curry/curry.js';
+import { promiseAll } from '../src/promises/promiseAll/promiseAll.js';
+import { promiseRace } from '../src/promises/promiseRace/promiseRace.js';
+import { deepClone } from '../src/objects/deepClone/deepClone.js';
 
 const products = [
   { name: 'Wireless Headphones', category: 'Audio', price: 129.99 },
