@@ -21,6 +21,7 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 | `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
 | `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
 | `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/flatten.md) |
+| `myReduce` | Calculate totals, group products, and build lookup objects | [Source](src/array/myReduce.js), [guide](docs/array/reduce.md) |
 | `promiseAll` | Wait for a set of dashboard requests together | [Source](src/promises/promiseAll/promiseAll.js), [guide](docs/promise-all.md) |
 | `promiseRace` | Use the first completed request | [Source](src/promises/promiseRace/promiseRace.js), [guide](docs/promise-race.md) |
 | `unique` | Remove duplicate category tags | [Source](src/arrays/unique/unique.js), [guide](docs/unique.md) |
@@ -38,10 +39,14 @@ Tests use Node's built-in `node:test` and `node:assert`, with no test framework 
 
 ```text
 src/functions/<name>/  Function implementation and matching unit test
+src/array/             Array.prototype utility implementations
+examples/array/reduce/ Practical reduce examples
+ tests/array/           Array utility unit tests
+docs/array/             Array utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
 src/arrays/<name>/     Array implementation and matching unit test
 src/objects/<name>/    Object implementation and matching unit test
-playground/          Browser-native interactive demos for all nine modules
+playground/          Browser-native interactive demos for debounce and myReduce
 docs/                Mirrored guides for convenient documentation browsing
 .github/workflows/   CI runs the unit suite on Node 20
 ```
@@ -53,6 +58,7 @@ docs/                Mirrored guides for convenient documentation browsing
 - Throttle invokes at the start of a window and coalesces suppressed calls into one trailing invocation.
 - Memoization uses a nested `Map` cache keyed by argument identity; call `clear()` to release cached results.
 - `flatten` is non-mutating and accepts finite non-negative integer depths or `Infinity`.
+- `Array.prototype.myReduce` follows the native reducer behavior for initial values, callback arguments, and sparse arrays.
 - `promiseAll` accepts any iterable, preserves input order, resolves empty iterables, and rejects on the first rejection.
 - `promiseRace` settles with the first result and leaves an empty iterable pending.
 - `unique` keeps first-seen order using Set equality.
