@@ -48,12 +48,10 @@ Use map() when every input item should become one corresponding output item. Use
 ## 9. Practical examples
 
 - [Calculate a shopping cart total](../../examples/array/reduce/calculate-cart-total.js) by adding each quantity-weighted line total.
-- [Group products by category](../../examples/array/reduce/group-by-category.js) into an object whose values are product lists.
-- [Create a lookup map](../../examples/array/reduce/create-lookup-map.js) keyed by product ID.
 - [Sum numbers](../../examples/array/reduce/basic-sum.js) from an explicit starting value.
 - [Flatten one level](../../examples/array/reduce/flatten-array.js) by appending each nested group into an output accumulator.
 
-The [interactive playground](../../playground/reduce/index.html) includes the sum walkthrough and live cart, grouping, and lookup demonstrations.
+The [interactive playground](../../playground/reduce/index.html) includes the sum walkthrough and live shopping-cart total.
 
 ## 10. Edge cases and tests
 

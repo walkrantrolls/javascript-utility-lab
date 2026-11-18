@@ -14,12 +14,6 @@ document.querySelector('#walk-steps').innerHTML = walkTraces.map((row) =>
 ).join('');
 document.querySelector('#walk-final').textContent = walkFinal;
 
-const products = [
-  { id: 'sku-101', name: 'Notebook', category: 'Stationery', price: 12.5 },
-  { id: 'sku-102', name: 'Pen set', category: 'Stationery', price: 5.5 },
-  { id: 'sku-103', name: 'Desk lamp', category: 'Workspace', price: 39 },
-];
-
 const cart = document.querySelector('#cart-items');
 function renderCart() {
   const items = [...cart.querySelectorAll('.cart-row')].map((row) => ({
@@ -44,20 +38,3 @@ cart.addEventListener('input', (event) => {
 });
 renderCart();
 
-const groupedProducts = products.myReduce((groups, product) => {
-  (groups[product.category] ??= []).push(product.name);
-  return groups;
-}, Object.create(null));
-document.querySelector('#group-output').textContent = JSON.stringify(groupedProducts, null, 2);
-
-const lookup = products.myReduce((byId, product) => {
-  byId[product.id] = product;
-  return byId;
-}, Object.create(null));
-const lookupSelect = document.querySelector('#lookup-id');
-lookupSelect.innerHTML = products.map((product) => `<option value="${product.id}">${product.id} — ${product.name}</option>`).join('');
-function showLookup() {
-  document.querySelector('#lookup-output').textContent = JSON.stringify(lookup[lookupSelect.value], null, 2);
-}
-lookupSelect.addEventListener('change', showLookup);
-showLookup();

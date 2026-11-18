@@ -18,7 +18,7 @@
         <section class="hero">
           <div class="eyebrow">ARRAY UTILITIES · ACCUMULATORS</div>
           <h1>One collection.<br />One useful result.</h1>
-          <p><code>Array.prototype.myReduce</code> combines values from left to right into a single result. Use it to calculate totals, group records, and create lookup objects.</p>
+          <p><code>Array.prototype.myReduce</code> combines values from left to right into a single result. Use it to calculate cart totals, build summaries, and flatten nested lists.</p>
           <div class="tags"><span>Four callback arguments</span><span>Explicit accumulator</span><span>Sparse-array aware</span></div>
         </section>
         <h2 class="section-title">Visual walkthrough · Sum an array</h2>
@@ -45,21 +45,6 @@
         <section class="panel" style="margin-top:12px"><h2>Cart accumulator trace</h2><p>The callback returns the next subtotal for the following line item.</p>
           <div class="trace-wrap"><table class="trace"><thead><tr><th>Step</th><th>Product</th><th>Subtotal before</th><th>Line total</th><th>Subtotal after</th></tr></thead><tbody id="cart-trace"></tbody></table></div>
         </section>
-        <h2 class="section-title">Example B · Group products by category</h2>
-        <section class="panel"><p>The accumulator starts as an object with no inherited keys. Each product is appended to its category list.</p><pre class="code" id="group-output"></pre></section>
-        <h2 class="section-title">Example C · Create a lookup map</h2>
-        <section class="panel"><p>Build an object keyed by product ID, then select an ID to retrieve the matching record.</p><select id="lookup-id" class="quantity" aria-label="Choose a product ID"></select><pre class="code" id="lookup-output"></pre></section>
-        <h2 class="section-title">Document the concept</h2>
-        <div class="example-grid">
-          <section class="panel"><span class="number">01</span><h2>What is reduce?</h2><p>It processes present array elements from left to right and returns one accumulated result. The result may be a primitive or a data structure.</p></section>
-          <section class="panel"><span class="number">02</span><h2>How the accumulator works</h2><p>Every callback return becomes the accumulator passed to the next visited element. It is the evolving state of the reduction.</p></section>
-          <section class="panel"><span class="number">03</span><h2>The four callback arguments</h2><p>Each callback receives accumulator, currentValue, currentIndex, and the original array. With no initial value, the callback begins at the second present element.</p></section>
-          <section class="panel"><span class="number">04</span><h2>Initial value and sparse arrays</h2><ul class="edge-list"><li>Provided initial values seed the accumulator; explicit undefined still counts.</li><li>Without one, the first present element seeds it; empty and hole-only arrays throw.</li><li>Sparse holes are skipped while explicit undefined values are visited.</li></ul></section>
-          <section class="panel"><span class="number">05</span><h2>Internals</h2><p>The implementation converts the receiver to an object, snapshots its length, finds the starting accumulator when needed, checks index presence, and calls the callback. It never calls native reduce.</p></section>
-          <section class="panel"><span class="number">06</span><h2>When to choose each method</h2><p>Use map for one-to-one transformations, filter to select items, and reduce when many items become one summary or a different structure. Prefer map or filter when they express the intent more directly.</p></section>
-          <section class="panel"><span class="number">07</span><h2>Practical use cases</h2><p>Totals, grouping, lookup objects, counting, flattening, and building indexes from records.</p></section>
-          <section class="panel"><span class="number">08</span><h2>Complexity and tests</h2><p>Time O(n), extra space O(1) excluding the accumulator. Tests cover initial values, sparse arrays, callback arguments, and errors.</p><div class="links"><a href="https://github.com/walkrantrolls/javascript-utility-lab/blob/main/tests/array/myReduce.test.js">View 12 test cases ↗</a><a href="https://github.com/walkrantrolls/javascript-utility-lab/blob/main/docs/array/reduce.md">Full engineering guide ↗</a></div></section>
-        </div>
         <section class="panel code-panel"><h2>Core implementation</h2><p>Installed as a non-enumerable Array.prototype method; the callback receives all four native arguments.</p>
           <pre class="code"><code>Array.prototype.myReduce = function(callback, initialValue) {
   // Validate the receiver and callback; snapshot length.
