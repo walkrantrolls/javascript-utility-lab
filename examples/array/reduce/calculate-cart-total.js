@@ -1,4 +1,4 @@
-import '../../../src/array/myReduce.js';
+import '../../../src/array/myReduce/myReduce.js';
 
 const cart = [
   { product: 'Notebook', quantity: 2, unitPrice: 12.5 },

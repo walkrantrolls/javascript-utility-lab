@@ -1,4 +1,4 @@
-import '../../src/array/myReduce.js';
+import '../../src/array/myReduce/myReduce.js';
 
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 const walkValues = [1, 2, 3, 4];

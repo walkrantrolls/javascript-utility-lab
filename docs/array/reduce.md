@@ -37,7 +37,7 @@ A sparse hole is an absent property, not a value equal to undefined. Like native
 
 ## 7. Implementation internals
 
-See [myReduce.js](../../src/array/myReduce.js). It first rejects a nullish receiver, converts the receiver to an object, snapshots its length using ToLength-like rules, and checks the callback. It then either uses the supplied initial value or searches for the first present index. The loop checks index presence and calls the callback with all four arguments. Callback errors propagate unchanged. Object.defineProperty installs the method as writable and configurable but non-enumerable, matching native prototype-method visibility.
+See [myReduce.js](../../src/array/myReduce/myReduce.js). It first rejects a nullish receiver, converts the receiver to an object, snapshots its length using ToLength-like rules, and checks the callback. It then either uses the supplied initial value or searches for the first present index. The loop checks index presence and calls the callback with all four arguments. Callback errors propagate unchanged. Object.defineProperty installs the method as writable and configurable but non-enumerable, matching native prototype-method visibility.
 
 The implementation is generic over array-like receivers, as the native method is. It does not use Array.prototype.reduce.
 
@@ -55,7 +55,7 @@ The [interactive playground](../../playground/reduce/index.html) includes the su
 
 ## 10. Edge cases and tests
 
-The [tests](../../src/array/myReduce.test.js) verify explicit and missing initial values, multiplication, empty and single-element arrays, explicit undefined, sparse holes, all four callback arguments, thrown callback errors, generic array-like receivers, and prototype property descriptors. Run them with npm test.
+The [tests](../../src/array/myReduce/myReduce.test.js) verify explicit and missing initial values, multiplication, empty and single-element arrays, explicit undefined, sparse holes, all four callback arguments, thrown callback errors, generic array-like receivers, and prototype property descriptors. Run them with npm test.
 
 ## 11. Complexity analysis
 

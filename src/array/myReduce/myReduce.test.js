@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { myReduce } from '../../src/array/myReduce.js';
+import { myReduce } from './myReduce.js';
 
 test('sums numbers with an initial value', () => {
   assert.equal([1, 2, 3, 4].myReduce((sum, value) => sum + value, 0), 10);

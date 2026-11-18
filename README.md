@@ -21,7 +21,7 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 | `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
 | `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
 | `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/flatten.md) |
-| `myReduce` | Calculate a shopping cart total | [Source](src/array/myReduce.js), [guide](docs/array/reduce.md) |
+| `myReduce` | Calculate a shopping cart total | [Source](src/array/myReduce/myReduce.js), [guide](docs/array/reduce.md) |
 | `promiseAll` | Wait for a set of dashboard requests together | [Source](src/promises/promiseAll/promiseAll.js), [guide](docs/promise-all.md) |
 | `promiseRace` | Use the first completed request | [Source](src/promises/promiseRace/promiseRace.js), [guide](docs/promise-race.md) |
 | `unique` | Remove duplicate category tags | [Source](src/arrays/unique/unique.js), [guide](docs/unique.md) |
@@ -40,7 +40,7 @@ Tests use Node's built-in `node:test` and `node:assert`, with no test framework 
 ```text
 src/functions/<name>/  Function implementation and matching unit test
 examples/array/reduce/ Practical reduce examples
-src/array/             Array.prototype utilities with co-located tests
+src/array/<name>/        Array utility implementation and co-located test
 docs/array/             Array utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
 src/arrays/<name>/     Array implementation and matching unit test

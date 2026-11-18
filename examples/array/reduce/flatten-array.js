@@ -1,4 +1,4 @@
-import '../../../src/array/myReduce.js';
+import '../../../src/array/myReduce/myReduce.js';
 
 const groups = [[1, 2], [3], [4, 5]];
 const flattened = groups.myReduce((result, group) => {
