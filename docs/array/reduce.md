@@ -55,7 +55,7 @@ The [interactive playground](../../playground/reduce/index.html) includes the su
 
 ## 10. Edge cases and tests
 
-The [tests](../../tests/array/myReduce.test.js) verify explicit and missing initial values, multiplication, empty and single-element arrays, explicit undefined, sparse holes, all four callback arguments, thrown callback errors, generic array-like receivers, and prototype property descriptors. Run them with npm test.
+The [tests](../../src/array/myReduce.test.js) verify explicit and missing initial values, multiplication, empty and single-element arrays, explicit undefined, sparse holes, all four callback arguments, thrown callback errors, generic array-like receivers, and prototype property descriptors. Run them with npm test.
 
 ## 11. Complexity analysis
 
