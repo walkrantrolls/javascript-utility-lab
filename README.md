@@ -18,7 +18,7 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 | --- | --- | --- |
 | `debounce` | Wait for a pause in a product search field | [Source](src/functions/debounce/debounce.js), [guide](docs/debounce.md) |
 | `throttle` | Bound event handling during a burst of resize-like events | [Source](src/functions/throttle/throttle.js), [guide](docs/throttle.md) |
-| `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
+| `classNames` | Compose conditional UI classes for an adaptive button | [Source](src/functions/classnames/classnames.js), [guide](docs/classnames.md) |\n| `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
 | `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
 | `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/flatten.md) |
 | `myReduce` | Calculate a shopping cart total | [Source](src/array/myReduce/myReduce.js), [guide](docs/array/reduce.md) |
@@ -45,7 +45,7 @@ docs/array/             Array utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
 src/arrays/<name>/     Array implementation and matching unit test
 src/objects/<name>/    Object implementation and matching unit test
-playground/          Browser-native interactive demos for debounce and myReduce
+playground/          Browser-native interactive demos for debounce, myReduce, and classNames
 docs/                Mirrored guides for convenient documentation browsing
 .github/workflows/   CI runs the unit suite on Node 20
 ```
