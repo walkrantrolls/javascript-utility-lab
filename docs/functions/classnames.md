@@ -28,7 +28,7 @@ For classNames("button", { "button--primary": true, "is-disabled": false }, ["is
 classnames.test.js covers mixed inputs, condition flags, nested arrays, falsy values, own enumerable keys, ordering, duplicates, immutability, ignored types, and empty input. Run the suite with npm test.
 
 ## 7. Real-world demonstration
-playground/classnames/index.html demonstrates an adaptive action button with controls for primary styling, loading, disabled state, and width. The rendered button and generated class string update together. See ../../examples/functions/classnames/button-classes.js for the small reusable example.
+playground/classnames/index.html demonstrates an adaptive action button with controls for primary styling, loading, disabled state, and width. The rendered button and generated class string update together. See the [runnable example](../../examples/functions/classnames/button-classes.js) for the small reusable example.
 
 ## 8. Complexity analysis
 Let n be the total number of visited array entries and object keys, k the number of included names, and d the deepest nested array depth. Traversal takes O(n) time. The returned string and collected names use O(k) space; recursive traversal uses O(d) call-stack space.
