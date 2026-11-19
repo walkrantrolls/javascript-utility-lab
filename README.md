@@ -40,7 +40,7 @@ Tests use Node's built-in `node:test` and `node:assert`, with no test framework 
 
 ```text
 src/functions/<name>/  Function implementation and matching unit test
-examples/array/reduce/ Practical reduce examples
+examples/array/reduce/ Practical reduce examples\nexamples/functions/<name>/ Runnable function examples
 src/array/<name>/        Array utility implementation and co-located test
 docs/array/             Array utility engineering guides
 docs/functions/        Function utility engineering guides
