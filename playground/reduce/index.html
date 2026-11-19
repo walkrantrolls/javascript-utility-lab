@@ -45,19 +45,6 @@
         <section class="panel" style="margin-top:12px"><h2>Cart accumulator trace</h2><p>The callback returns the next subtotal for the following line item.</p>
           <div class="trace-wrap"><table class="trace"><thead><tr><th>Step</th><th>Product</th><th>Subtotal before</th><th>Line total</th><th>Subtotal after</th></tr></thead><tbody id="cart-trace"></tbody></table></div>
         </section>
-        <section class="panel code-panel"><h2>Core implementation</h2><p>Installed as a non-enumerable Array.prototype method; the callback receives all four native arguments.</p>
-          <pre class="code"><code>Array.prototype.myReduce = function(callback, initialValue) {
-  // Validate the receiver and callback; snapshot length.
-  // Use the provided initial value or locate the first present index.
-  for (; index &lt; length; index += 1) {
-    if (index in object) {
-      accumulator = callback(accumulator, object[index], index, object);
-    }
-  }
-  return accumulator;
-};</code></pre>
-          <div class="links"><a href="https://github.com/walkrantrolls/javascript-utility-lab/blob/main/src/array/myReduce/myReduce.js">Inspect full source ↗</a><a href="https://github.com/walkrantrolls/javascript-utility-lab/blob/main/src/array/myReduce/myReduce.test.js">View unit tests ↗</a><a href="https://github.com/walkrantrolls/javascript-utility-lab/tree/main/examples/array/reduce">Browse example scripts ↗</a></div>
-        </section>
       </main>
       <footer class="footer">Utility Lab · Array.prototype.myReduce · Runs in your browser</footer>
     </div>
