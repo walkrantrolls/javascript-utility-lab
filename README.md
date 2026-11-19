@@ -42,7 +42,8 @@ Tests use Node's built-in `node:test` and `node:assert`, with no test framework 
 src/functions/<name>/  Function implementation and matching unit test
 examples/array/reduce/ Practical reduce examples
 src/array/<name>/        Array utility implementation and co-located test
-docs/array/             Array utility engineering guides\ndocs/functions/        Function utility engineering guides
+docs/array/             Array utility engineering guides
+docs/functions/        Function utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
 src/arrays/<name>/     Array implementation and matching unit test
 src/objects/<name>/    Object implementation and matching unit test
