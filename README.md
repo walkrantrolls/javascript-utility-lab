@@ -16,7 +16,7 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 
 | Utility | Practical example | Implementation |
 | --- | --- | --- |
-| `debounce` | Wait for a pause in a product search field | [Source](src/functions/debounce/debounce.js), [guide](docs/debounce.md) |
+| `debounce` | Wait for a pause in a product search field | [Source](src/functions/debounce/debounce.js), [guide](docs/functions/debounce.md) |
 | `throttle` | Bound event handling during a burst of resize-like events | [Source](src/functions/throttle/throttle.js), [guide](docs/throttle.md) |
 | `classNames` | Compose conditional UI classes for an adaptive button | [Source](src/functions/classnames/classnames.js), [guide](docs/functions/classnames.md) |
 | `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
