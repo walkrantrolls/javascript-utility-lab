@@ -21,7 +21,7 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 | `classNames` | Compose conditional UI classes for an adaptive button | [Source](src/functions/classnames/classnames.js), [guide](docs/functions/classnames.md) |
 | `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
 | `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
-| `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/flatten.md) |
+| `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/array/flatten.md) |
 | `myReduce` | Calculate a shopping cart total | [Source](src/array/myReduce/myReduce.js), [guide](docs/array/reduce.md) |
 | `promiseAll` | Wait for a set of dashboard requests together | [Source](src/promises/promiseAll/promiseAll.js), [guide](docs/promise-all.md) |
 | `promiseRace` | Use the first completed request | [Source](src/promises/promiseRace/promiseRace.js), [guide](docs/promise-race.md) |
@@ -41,6 +41,7 @@ Tests use Node's built-in `node:test` and `node:assert`, with no test framework 
 ```text
 src/functions/<name>/  Function implementation and matching unit test
 examples/array/reduce/ Practical reduce examples
+examples/array/flatten/ Runnable nested-array example
 examples/functions/<name>/ Runnable function examples
 src/array/<name>/        Array utility implementation and co-located test
 docs/array/             Array utility engineering guides
@@ -48,7 +49,7 @@ docs/functions/        Function utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
 src/arrays/<name>/     Array implementation and matching unit test
 src/objects/<name>/    Object implementation and matching unit test
-playground/          Browser-native interactive demos for debounce, myReduce, and classNames
+playground/          Browser-native interactive demos for debounce, myReduce, classNames, and flatten
 docs/                Mirrored guides for convenient documentation browsing
 .github/workflows/   CI runs the unit suite on Node 20
 ```
@@ -59,7 +60,7 @@ docs/                Mirrored guides for convenient documentation browsing
 - Debounce uses a trailing invocation and preserves the receiver and latest arguments.
 - Throttle invokes at the start of a window and coalesces suppressed calls into one trailing invocation.
 - Memoization uses a nested `Map` cache keyed by argument identity; call `clear()` to release cached results.
-- `flatten` is non-mutating and accepts finite non-negative integer depths or `Infinity`.
+- `flatten` recursively flattens all levels by default and accepts an optional finite non-negative integer depth or `Infinity`.
 - `Array.prototype.myReduce` follows the native reducer behavior for initial values, callback arguments, and sparse arrays.
 - `promiseAll` accepts any iterable, preserves input order, resolves empty iterables, and rejects on the first rejection.
 - `promiseRace` settles with the first result and leaves an empty iterable pending.
