@@ -2,106 +2,71 @@ import { throttle } from "../../src/functions/throttle/throttle.js";
 
 const waitInput = document.querySelector("#wait");
 const waitLabel = document.querySelector("#wait-label");
-const burstButton = document.querySelector("#burst");
+const requestButton = document.querySelector("#request");
 const resetButton = document.querySelector("#reset");
-const scrollbox = document.querySelector("#scrollbox");
-const callsOutput = document.querySelector("#calls");
-const executionsOutput = document.querySelector("#executions");
+const status = document.querySelector("#status");
+const clicksOutput = document.querySelector("#clicks");
+const sentOutput = document.querySelector("#sent");
 const ignoredOutput = document.querySelector("#ignored");
-const durationOutput = document.querySelector("#window-duration");
-const timestampOutput = document.querySelector("#timestamp");
-const argumentsOutput = document.querySelector("#arguments");
-const contextOutput = document.querySelector("#context");
-const eventLog = document.querySelector("#event-log");
-const windowState = document.querySelector("#window-state");
+const waitValueOutput = document.querySelector("#wait-value");
+const lastRunOutput = document.querySelector("#last-run");
+const lastArgsOutput = document.querySelector("#last-args");
 
-let calls = 0;
-let executions = 0;
-let gateOpen = true;
-let gateTimer = null;
-let throttledHandler;
-let recentEvents = [];
+let clicks = 0;
+let requestsSent = 0;
+let ignoredClicks = 0;
+let releaseTimer = null;
+let throttledRequest;
 
-function renderMetrics() {
-  callsOutput.textContent = String(calls);
-  executionsOutput.textContent = String(executions);
-  ignoredOutput.textContent = String(calls - executions);
-  durationOutput.textContent = waitInput.value;
-  waitLabel.textContent = waitInput.value + " ms";
-  windowState.classList.toggle("active", !gateOpen);
-  windowState.lastElementChild.textContent = gateOpen ? "Ready" : "Window active";
-  eventLog.replaceChildren(...recentEvents.map(({ message, passed }) => {
-    const item = document.createElement("li");
-    const text = document.createElement("span");
-    const status = document.createElement("b");
-    text.textContent = message;
-    status.textContent = passed ? "EXECUTED" : "IGNORED";
-    status.className = passed ? "ran" : "ignored";
-    item.append(text, status);
-    return item;
-  }));
-  if (recentEvents.length === 0) {
-    const item = document.createElement("li");
-    item.textContent = "No events yet";
-    eventLog.append(item);
-  }
+function render() {
+  clicksOutput.textContent = String(clicks);
+  sentOutput.textContent = String(requestsSent);
+  ignoredOutput.textContent = String(ignoredClicks);
+  waitValueOutput.textContent = Number(waitInput.value).toLocaleString();
+  waitLabel.textContent = Number(waitInput.value).toLocaleString() + " ms";
 }
 
-function createHandler() {
-  if (gateTimer !== null) clearTimeout(gateTimer);
-  gateTimer = null;
-  gateOpen = true;
-  const wait = Number(waitInput.value);
-  throttledHandler = throttle(function (position, source) {
-    executions += 1;
-    timestampOutput.textContent = new Date().toLocaleTimeString();
-    argumentsOutput.textContent = JSON.stringify([position, source]);
-    contextOutput.textContent = this.source;
-  }, wait);
-  renderMetrics();
-}
-
-function sendEvent(position, source) {
-  calls += 1;
-  const before = executions;
-  throttledHandler.call({ source }, position, source);
-  const passed = executions > before;
-  recentEvents.unshift({
-    message: source + " · position " + position,
-    passed,
-  });
-  recentEvents = recentEvents.slice(0, 8);
-
-  if (passed) {
-    gateOpen = false;
-    if (gateTimer !== null) clearTimeout(gateTimer);
-    gateTimer = setTimeout(() => {
-      gateTimer = null;
-      gateOpen = true;
-      renderMetrics();
+function configureThrottle() {
+  if (releaseTimer !== null) clearTimeout(releaseTimer);
+  releaseTimer = null;
+  status.classList.remove("cooldown");
+  status.textContent = "Ready for the next request";
+  throttledRequest = throttle(function (clickNumber) {
+    requestsSent += 1;
+    lastRunOutput.textContent = new Date().toLocaleTimeString();
+    lastArgsOutput.textContent = JSON.stringify([clickNumber]);
+    status.textContent = "Request " + clickNumber + " sent immediately";
+    status.classList.add("cooldown");
+    releaseTimer = setTimeout(() => {
+      releaseTimer = null;
+      status.classList.remove("cooldown");
+      status.textContent = "Ready for the next request";
     }, Number(waitInput.value));
-  }
-  renderMetrics();
+    render();
+  }, Number(waitInput.value));
+  render();
 }
 
-waitInput.addEventListener("input", createHandler);
-burstButton.addEventListener("click", () => {
-  for (let position = 1; position <= 12; position += 1) {
-    sendEvent(position, "burst");
+requestButton.addEventListener("click", () => {
+  clicks += 1;
+  const previousRequests = requestsSent;
+  throttledRequest.call({ source: "report button" }, clicks);
+  if (requestsSent === previousRequests) {
+    ignoredClicks += 1;
+    status.textContent = "Click ignored during the wait window";
+    status.classList.add("cooldown");
   }
-});
-resetButton.addEventListener("click", () => {
-  calls = 0;
-  executions = 0;
-  recentEvents = [];
-  timestampOutput.textContent = "—";
-  argumentsOutput.textContent = "[]";
-  contextOutput.textContent = "—";
-  scrollbox.scrollTop = 0;
-  createHandler();
-});
-scrollbox.addEventListener("scroll", () => {
-  sendEvent(scrollbox.scrollTop, "scroll");
+  render();
 });
 
-createHandler();
+waitInput.addEventListener("input", configureThrottle);
+resetButton.addEventListener("click", () => {
+  clicks = 0;
+  requestsSent = 0;
+  ignoredClicks = 0;
+  lastRunOutput.textContent = "—";
+  lastArgsOutput.textContent = "[]";
+  configureThrottle();
+});
+
+configureThrottle();

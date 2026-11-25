@@ -4,7 +4,7 @@ This self-contained module includes the implementation, colocated tests, guide, 
 
 ## 1. Problem statement
 
-Scroll, resize, pointer, and telemetry events can arrive faster than useful work can be performed. Processing every event wastes CPU and can make interfaces feel sluggish.
+A user can double-click a report button or submit action before the first request finishes. That can send duplicate work when the application should accept only one attempt per time window.
 
 ## 2. Conceptual explanation
 
@@ -39,7 +39,7 @@ For events A, B, and C inside a 180 ms window:
 
 ## 7. Real-world demonstration
 
-The [scroll-tracking playground](../../playground/throttle/index.html) compares scroll events with callback executions. Change the wait, scroll the event panel, or generate a rapid event burst. The [runnable scroll example](../../examples/functions/throttle/scroll-tracking.js) shows the same leading-only policy in a small program.
+The [rate-limited report playground](../../playground/throttle/index.html) lets you click repeatedly, adjust the wait, and compare clicks with accepted requests. The [runnable example](../../examples/functions/throttle/rate-limited-action.js) demonstrates the same leading-only behavior.
 
 ## 8. Complexity analysis
 
