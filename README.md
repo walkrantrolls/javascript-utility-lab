@@ -17,7 +17,7 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 | Utility | Practical example | Implementation |
 | --- | --- | --- |
 | `debounce` | Wait for a pause in a product search field | [Source](src/functions/debounce/debounce.js), [guide](docs/functions/debounce.md) |
-| `throttle` | Bound event handling during a burst of resize-like events | [Source](src/functions/throttle/throttle.js), [guide](docs/throttle.md) |
+| `throttle` | Bound event handling during a burst of resize-like events | [Source](src/functions/throttle/throttle.js), [guide](docs/functions/throttle.md) |
 | `classNames` | Compose conditional UI classes for an adaptive button | [Source](src/functions/classnames/classnames.js), [guide](docs/functions/classnames.md) |
 | `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
 | `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
@@ -48,7 +48,7 @@ docs/array/             Array utility engineering guides
 docs/functions/        Function utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
 src/objects/<name>/    Object implementation and matching unit test
-playground/          Browser-native interactive demos for debounce, myReduce, classNames, and flatten
+playground/          Browser-native interactive demos for debounce, throttle, myReduce, classNames, and flatten
 docs/                Mirrored guides for convenient documentation browsing
 .github/workflows/   CI runs the unit suite on Node 20
 ```
