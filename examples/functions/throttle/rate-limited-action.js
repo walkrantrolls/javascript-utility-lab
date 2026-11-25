@@ -1,15 +1,13 @@
 import { throttle } from "../../../src/functions/throttle/throttle.js";
 
-let attempts = 0;
-const requestReport = throttle((attempt) => {
-  console.log("Report request accepted:", attempt);
+const requestReport = throttle((requestId) => {
+  console.log("Report request accepted:", requestId);
 }, 500);
 
-// Simulate three quick clicks. Only the first request runs immediately.
-[1, 2, 3].forEach((attempt) => requestReport(attempt));
+// The first request runs now; the next two are ignored.
+requestReport("first");
+requestReport("repeat 1");
+requestReport("repeat 2");
 
-// After the wait window, the next click runs immediately.
-setTimeout(() => {
-  attempts += 1;
-  requestReport(attempts + 3);
-}, 600);
+// After the wait window, another request runs immediately.
+setTimeout(() => requestReport("after wait"), 600);
