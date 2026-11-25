@@ -1,4 +1,4 @@
-import flatten from "../../src/arrays/flatten/flatten.js";
+import flatten from "../../src/array/flatten/flatten.js";
 
 const input = document.querySelector("#array-input");
 const depthSelect = document.querySelector("#depth");

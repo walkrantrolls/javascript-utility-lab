@@ -12,7 +12,7 @@ Flatten traverses arrays depth first and copies each value into a new output arr
 
 ## 3. Implementation
 
-See [the implementation](../../../src/arrays/flatten/flatten.js). The function validates the input and depth, then a recursive visitor walks each item. It descends into an array while the remaining depth is positive; otherwise, it appends the item to the output. The default export matches the common flatten(arr) API, and a named export remains available.
+See [the implementation](../../src/array/flatten/flatten.js). The function validates the input and depth, then a recursive visitor walks each item. It descends into an array while the remaining depth is positive; otherwise, it appends the item to the output. The default export matches the common flatten(arr) API, and a named export remains available.
 
 ## 4. Step-by-step execution
 
@@ -36,7 +36,7 @@ For [["audio", ["headphones", "speakers"]], ["office", ["keyboards"]]] with the 
 
 ## 6. Unit tests
 
-[The colocated test file](../../../src/arrays/flatten/flatten.test.js) covers full recursive flattening, finite and infinite depths, shallow copying, sparse arrays, validation, and both exports. Run the suite with npm test.
+[The colocated test file](../../src/array/flatten/flatten.test.js) covers full recursive flattening, finite and infinite depths, shallow copying, sparse arrays, validation, and both exports. Run the suite with npm test.
 
 ## 7. Real-world demonstration
 

@@ -21,11 +21,11 @@ Then open [http://localhost:4173](http://localhost:4173). No install step is nee
 | `classNames` | Compose conditional UI classes for an adaptive button | [Source](src/functions/classnames/classnames.js), [guide](docs/functions/classnames.md) |
 | `curry` | Preconfigure a greeting function for a UI flow | [Source](src/functions/curry/curry.js), [guide](docs/curry.md) |
 | `memoize` | Reuse recursive Fibonacci results | [Source](src/functions/memoize/memoize.js), [guide](docs/memoize.md) |
-| `flatten` | Normalize nested category ID arrays | [Source](src/arrays/flatten/flatten.js), [guide](docs/array/flatten.md) |
+| `flatten` | Normalize nested category ID arrays | [Source](src/array/flatten/flatten.js), [guide](docs/array/flatten.md) |
 | `myReduce` | Calculate a shopping cart total | [Source](src/array/myReduce/myReduce.js), [guide](docs/array/reduce.md) |
 | `promiseAll` | Wait for a set of dashboard requests together | [Source](src/promises/promiseAll/promiseAll.js), [guide](docs/promise-all.md) |
 | `promiseRace` | Use the first completed request | [Source](src/promises/promiseRace/promiseRace.js), [guide](docs/promise-race.md) |
-| `unique` | Remove duplicate category tags | [Source](src/arrays/unique/unique.js), [guide](docs/unique.md) |
+| `unique` | Remove duplicate category tags | [Source](src/array/unique/unique.js), [guide](docs/array/unique.md) |
 | `deepClone` | Edit a copy of nested settings | [Source](src/objects/deepClone/deepClone.js), [guide](docs/deep-clone.md) |
 
 ## Test
@@ -47,7 +47,6 @@ src/array/<name>/        Array utility implementation and co-located test
 docs/array/             Array utility engineering guides
 docs/functions/        Function utility engineering guides
 src/promises/<name>/   Promise implementation and matching unit test
-src/arrays/<name>/     Array implementation and matching unit test
 src/objects/<name>/    Object implementation and matching unit test
 playground/          Browser-native interactive demos for debounce, myReduce, classNames, and flatten
 docs/                Mirrored guides for convenient documentation browsing
