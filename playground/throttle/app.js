@@ -41,7 +41,7 @@ function configureThrottle() {
     requestsSent += 1;
     lastRunOutput.textContent = new Date().toLocaleTimeString();
     lastArgsOutput.textContent = JSON.stringify([clickNumber]);
-    status.textContent = "Request " + clickNumber + " sent immediately";
+    status.textContent = "Report request #" + clickNumber + " sent immediately";
     status.classList.add("cooldown");
     releaseTimer = setTimeout(() => {
       releaseTimer = null;
@@ -56,7 +56,7 @@ function configureThrottle() {
 requestButton.addEventListener("click", () => {
   clicks += 1;
   const previousRequests = requestsSent;
-  throttledRequest.call({ source: "report button" }, clicks);
+  throttledRequest.call({ source: "report button" }, requestsSent + 1);
   if (requestsSent === previousRequests) {
     ignoredClicks += 1;
     status.textContent = "Click ignored during the wait window";
