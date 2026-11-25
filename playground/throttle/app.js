@@ -18,12 +18,18 @@ let ignoredClicks = 0;
 let releaseTimer = null;
 let throttledRequest;
 
+function updateWaitDisplay() {
+  const formattedWait = Number(waitInput.value).toLocaleString();
+  waitLabel.value = formattedWait + " ms";
+  waitLabel.textContent = formattedWait + " ms";
+  waitValueOutput.textContent = formattedWait;
+}
+
 function render() {
   clicksOutput.textContent = String(clicks);
   sentOutput.textContent = String(requestsSent);
   ignoredOutput.textContent = String(ignoredClicks);
-  waitValueOutput.textContent = Number(waitInput.value).toLocaleString();
-  waitLabel.textContent = Number(waitInput.value).toLocaleString() + " ms";
+  updateWaitDisplay();
 }
 
 function configureThrottle() {
@@ -60,6 +66,7 @@ requestButton.addEventListener("click", () => {
 });
 
 waitInput.addEventListener("input", configureThrottle);
+waitInput.addEventListener("change", configureThrottle);
 resetButton.addEventListener("click", () => {
   clicks = 0;
   requestsSent = 0;
