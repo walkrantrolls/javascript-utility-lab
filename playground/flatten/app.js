@@ -60,17 +60,17 @@ function describeTraversal(values, depth) {
 }
 
 function render() {
+  const scenario = scenarios[scenarioSelect.value];
+  scenarioName.textContent = scenario ? scenario.title : "Custom JSON array";
+  scenarioDescription.textContent = scenario
+    ? scenario.description
+    : "Edit this JSON array to explore your own nested data.";
+
   try {
     const values = JSON.parse(input.value);
     if (!Array.isArray(values)) throw new TypeError("Input must be a JSON array.");
     const depth = depthSelect.value === "Infinity" ? Infinity : Number(depthSelect.value);
     const flattened = flatten(values, depth);
-    const scenario = scenarios[scenarioSelect.value];
-
-    scenarioName.textContent = scenario ? scenario.title : "Custom JSON array";
-    scenarioDescription.textContent = scenario
-      ? scenario.description
-      : "Edit this JSON array to explore your own nested data.";
     result.textContent = JSON.stringify(flattened, null, 2);
     resultCount.textContent = flattened.length + (flattened.length === 1 ? " item" : " items");
     summary.textContent = "The selected depth returns " + flattened.length + " items in a new array.";

@@ -40,7 +40,7 @@ For [["audio", ["headphones", "speakers"]], ["office", ["keyboards"]]] with the 
 
 ## 7. Real-world demonstration
 
-The [category ID playground](../../../playground/flatten/index.html) lets you edit nested category data, choose a flattening depth, and inspect both the output and a step-by-step traversal. The [runnable category example](../../examples/array/flatten/flatten-category-ids.js) shows the same utility in a small JavaScript program.
+The [flatten playground](../../playground/flatten/index.html) includes presets for product categories, grouped form fields, and paginated API results. Choose a depth, edit the JSON input, and compare the before/after arrays with a traversal trace. A runnable [category example](../../examples/array/flatten/flatten-category-ids.js) is also available.
 
 ## 8. Complexity analysis
 
