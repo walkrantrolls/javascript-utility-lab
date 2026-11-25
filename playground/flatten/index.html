@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="See how recursive flatten transforms nested category arrays."><title>flatten — Utility Lab</title>
+<meta name="description" content="Compare nested arrays and flattened results with practical data examples."><title>flatten — Utility Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -19,14 +19,15 @@
 <a class="nav-item active" href="./index.html" aria-current="page"><span class="nav-icon">↘</span>flatten</a>
 </nav><div class="sidebar-bottom"><a class="github-link" href="../../README.md">⌘ &nbsp; Documentation <span>↗</span></a></div></aside>
 <main class="main"><header class="top"><span class="crumb"><a href="../../playground/index.html">Playground</a> / flatten</span><a href="../../README.md">View docs ↗</a></header>
-<section class="hero"><div class="eyebrow">ARRAY UTILITIES · RECURSION</div><h1>Turn nested category paths<br>into one useful list.</h1><p>Flatten walks nested arrays and collects their values. By default it descends through every level; choose a depth to see where the traversal stops.</p><div class="tags"><span>Recursive traversal</span><span>Non-mutating result</span><span>Configurable depth</span></div></section>
-<h2 class="section-title">Interactive example · Category IDs</h2>
+<section class="hero"><div class="eyebrow">ARRAY UTILITIES · RECURSION</div><h1>Turn nested category paths<br>into one useful list.</h1><p>Choose a real-world data shape and compare its nested input with the flattened result. By default, flatten descends through every level; choose a depth to see where traversal stops.</p><div class="tags"><span>Recursive traversal</span><span>Non-mutating result</span><span>Configurable depth</span></div></section>
+<h2 class="section-title">Before and after · choose a real-world example</h2>
 <section class="grid" aria-label="Interactive flatten demonstration">
-<article class="panel"><h2>Nested category data</h2><p>Catalog data often groups category names by branch. Edit the JSON or choose a depth to inspect the flattened values.</p>
+<article class="panel"><h2 id="scenario-name">Product category tree</h2><p id="scenario-description">Flatten nested category labels into values that can power product filters.</p>
+<div class="control-row"><label for="scenario">Example preset</label><select class="select" id="scenario"><option value="categories" selected>Product categories</option><option value="formFields">Grouped form fields</option><option value="apiPages">Paginated API results</option><option value="custom">Custom JSON</option></select></div>
 <div class="control-row"><label for="depth">Flatten depth</label><select class="select" id="depth"><option value="0">0 · Keep nested</option><option value="1">1 · One level</option><option value="2">2 · Two levels</option><option value="Infinity" selected>All levels</option></select></div>
-<label for="array-input" class="output-label">Input JSON array</label><textarea class="input" id="array-input" spellcheck="false">[["audio", ["headphones", "speakers"]], ["office", ["keyboards", "mice"]]]</textarea></article>
-<article class="panel" aria-live="polite"><h2>Flattened values</h2><p id="summary">One flat list is ready to use for search filters.</p><div class="output-label" style="margin-top:14px"><span>RESULT ARRAY</span><b id="result-count">6 values</b></div><pre class="output" id="result">["audio","headphones","speakers","office","keyboards","mice"]</pre></article></section>
-<h2 class="section-title">Step-by-step execution</h2><section class="panel"><p>The visitor descends into an array while depth remains, and appends each leaf value to a fresh output array.</p><ol class="trace" id="trace"></ol></section>
+<label for="array-input" class="output-label"><span>BEFORE · NESTED INPUT</span><span>Edit the JSON if you like</span></label><textarea class="input" id="array-input" spellcheck="false">[["audio", ["headphones", "speakers"]], ["office", ["keyboards", "mice"]]]</textarea></article>
+<article class="panel" aria-live="polite"><h2>After · flattened result</h2><p id="summary">One flat list is ready to use for search filters.</p><div class="output-label" style="margin-top:14px"><span>AFTER · FLAT ARRAY</span><b id="result-count">6 values</b></div><pre class="output" id="result">["audio","headphones","speakers","office","keyboards","mice"]</pre></article></section>
+<h2 class="section-title">Step-by-step execution</h2><section class="panel"><p>Watch how the selected input changes shape. The visitor descends into nested arrays while depth remains, then appends each item to a fresh output array.</p><ol class="trace" id="trace"></ol></section>
 <section class="concept"><h2>What the recursion does</h2><p>Each nested array is another branch to visit. The function moves through those branches in order and carries a remaining-depth value. Once it reaches a scalar, or the depth limit, it appends that value to the result.</p>
 <div class="steps"><div class="step"><b>01 · Visit</b>Read each item from the current array in order.</div><div class="step"><b>02 · Descend</b>If the item is an array and depth allows, recursively visit its values.</div><div class="step"><b>03 · Collect</b>Append scalar values to a new output without changing the input.</div></div>
 <ul><li>The default call flattens every nested level, matching flatten(array).</li><li>Pass a finite depth to stop at a chosen nesting level.</li><li>Depth zero produces a shallow copy.</li></ul></section>
